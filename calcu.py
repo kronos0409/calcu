@@ -30,7 +30,7 @@ try:
         for i in range(0, len(notas)):
             if float(notas[i])<=0:
                 seguir_nota = False
-            if float(ponderaciones[i])<=0:
+            if float(ponderaciones[i])<=0 or float(ponderacion)<=0:
                 seguir_ponderacion = False
             comprobar +=float(ponderaciones[i])
         if comprobar + (float(ponderacion)/100) != 1:
