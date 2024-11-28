@@ -29,6 +29,7 @@ try:
         nota_necesaria = float((-promedio+float(eximicion)))/(float(ponderacion)/100)
         if nota_necesaria<0:
             nota_necesaria=0
+            st.write("ya pasaste")
         if float(nota_necesaria)>=6.0:
             st.image("8634ecb456af4ded64541504fb9a67c7.jpg")
             st.write(f"KGASTE, necesitas un {np.round(nota_necesaria,decimals=1)}")
