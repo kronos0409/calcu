@@ -33,7 +33,8 @@ try:
             if float(ponderaciones[i])<=0 or float(ponderacion)<=0:
                 seguir_ponderacion = False
             comprobar +=float(ponderaciones[i])
-        if comprobar + (float(ponderacion)/100) != 1:
+        print(np.round(comprobar,decimals=3))
+        if np.round(comprobar,decimals=3) + (float(ponderacion)/100) != 1:
             seguir_ponderacion= False 
     with c3:
         if seguir_nota and seguir_ponderacion:
