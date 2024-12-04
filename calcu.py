@@ -21,8 +21,9 @@ def cambiar_color(nota):
             return f'<span style="color: blue">{nota}</span>'
     else:
         return ''
-
-if st.checkbox("Calculo de notas"):
+calcu = st.checkbox("Calculo de notas")
+escala = st.checkbox("Escala de notas")
+if calcu:
     cant_notas = st.number_input("Cuantas notas tienes?", min_value=1, max_value=10)
     eximicion = st.text_input("Con que nota te eximes?")
     c1,c2,c3 = st.columns(3)
@@ -77,10 +78,10 @@ if st.checkbox("Calculo de notas"):
                     st.subheader("Las ponderaciones deben ser valores positivos y deben de sumar 100%")
 
     except ValueError:
-        st.write("complete los datos")
+        st.write("Complete los datos")
 
-if st.checkbox("Escala de notas"):
-    #try:
+if escala:
+    try:
         puntajes= []
         nota_max = st.text_input("Nota maxima?")
         nota_min = st.text_input("Nota minima?")
@@ -184,5 +185,5 @@ if st.checkbox("Escala de notas"):
             notas_df["Notas   "] = notas_4
             notas_df['Notas   '] = notas_df['Notas   '].apply(cambiar_color)
             st.write(notas_df.to_html(index=False,escape=False),unsafe_allow_html=True)
-    #except Exception:
-        #st.warning("Complete los datos")
+    except Exception:
+        st.warning("Complete los datos")
