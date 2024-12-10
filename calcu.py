@@ -13,6 +13,7 @@ seguir_nota_max=False
 seguir_nota_min=False
 seguir_porcentaje=False
 seguir_puntaje_max=False
+promedio=False
 def cambiar_color(nota):
     if nota!='':
         if float(nota) < 4:
@@ -23,6 +24,7 @@ def cambiar_color(nota):
         return ''
 calcu = st.checkbox("Calculo de notas")
 escala = st.checkbox("Escala de notas")
+promedio_check = st.checkbox("Calculo de promedios")
 if calcu:
     cant_notas = st.number_input("Cuantas notas tienes?", min_value=1, max_value=10)
     eximicion = st.text_input("Con que nota te eximes?")
@@ -39,9 +41,9 @@ if calcu:
                     ponderacion = st.text_input(f"Introduce el porcentaje de tu nota {i+1}", key=f"{-i-1}")
             notas.append(float(nota))
             ponderaciones.append(float(ponderacion)/100)
-            promedio = 0
-            for i in range(0,len(notas)):
-                promedio+=notas[i]*ponderaciones[i]
+        promedio = 0
+        for i in range(0,len(notas)):
+            promedio+=notas[i]*ponderaciones[i]
         with c1: 
             ponderacion = st.text_input("Introduce el porcentaje de tu nota que necesitas", key="B")
             for i in range(0, len(notas)):
@@ -79,7 +81,34 @@ if calcu:
 
     except ValueError:
         st.write("Complete los datos")
-
+if promedio_check:
+    cantidad_notas= st.number_input("Cuantas notas tienes?", min_value=1, max_value=7)
+    c1,c2 = st.columns(2)
+    notas_ponderado=[]
+    ponderaciones_promedio=[]
+    try:
+        for i in range(0, cantidad_notas):
+            if i < (cantidad_notas/2):
+                with c1:
+                    nota_promedio = st.text_input(f"Introduce tu nota {i+1}", key=f"{i}")
+                    ponderacion_promedio = st.text_input(f"Introduce el porcentaje de tu nota {i+1}", key=f"{-i-1}")
+            else:
+                with c2:
+                    nota_promedio = st.text_input(f"Introduce tu nota {i+1}", key=f"{i}")
+                    ponderacion_promedio = st.text_input(f"Introduce el porcentaje de tu nota {i+1}", key=f"{-i-1}")
+            notas_ponderado.append(float(nota_promedio))
+            ponderaciones_promedio.append(float(ponderacion_promedio)/100)
+        promedio_ponderado = 0
+        for i in range(0,len(notas_ponderado)):
+            promedio_ponderado+=notas_ponderado[i]*ponderaciones_promedio[i]
+        if st.button("Ver promedio"):
+            if promedio_ponderado<4:
+                st.write(f'<span style="color: red">tu promedio es: {np.round(promedio_ponderado,decimals=2)}</span>',unsafe_allow_html=True)
+            else:
+                st.write(f'<span style="color: blue">tu promedio es: {np.round(promedio_ponderado,decimals=2)}</span>',unsafe_allow_html=True)
+    except Exception:
+        if nota_promedio!='' and ponderacion_promedio!='':
+            st.warning("Completa los datos")
 if escala:
     try:
         puntajes= []
